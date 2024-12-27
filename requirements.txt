@@ -7,4 +7,6 @@ pymysql
 python-dotenv
 sqlalchemy
 mysql-connector-python
+flask
+streamlit
 -e .
