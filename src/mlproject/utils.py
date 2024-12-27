@@ -23,7 +23,7 @@ def sql_data_read():
             database=database
         )
         logging.info("Connection established")
-        df = pd.read_sql_query('Select * from car',mydb)
+        df = pd.read_sql_query('Select * from car_price',mydb)
         print(df.head())
 
         return df
