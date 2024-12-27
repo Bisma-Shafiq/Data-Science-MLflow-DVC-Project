@@ -4,9 +4,9 @@ import os
 import pandas as pd
 import numpy as np
 import sys
-
 from dataclasses import dataclass
-
+from src.mlproject.utils import sql_data_read
+from sklearn.model_selection import train_test_split
 @dataclass
 
 class DataIngestionConfig:
@@ -23,9 +23,25 @@ class DataIngestion:
         # data ingestion from mysql
     def initiate_data_ingestion(self):
         try:
-            logging.info("Data ingestion started from mysql")
-            os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path), exist_ok=True)
+            # read data from mysql
+            df = sql_data_read()
+
+            logging.info("Data ingestion reading Completed from mysql")
             
+            # make directory if not exists
+            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
+            
+            # convert data to csv
+            df.to_csv(self.ingestion_config.raw_data_path,index=False,header=True)
+
+            # train test split
+            train_set,test_set = train_test_split(df,test_size=0.2,random_state=42)
+            df.to_csv(self.ingestion_config.train_data_path,index=False,header=True) 
+            df.to_csv(self.ingestion_config.test_data_path,index=False,header=True)        
+            
+            logging.info("Data ingestion writing Completed")
+        
+            return(self.ingestion_config.train_data_path,self.ingestion_config.test_data_path)
         except Exception as e:
             logging.info("An error occurred")
             raise CustomException(e,sys)  
