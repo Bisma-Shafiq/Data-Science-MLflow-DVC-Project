@@ -23,6 +23,10 @@ def sql_data_read():
             database=database
         )
         logging.info("Connection established")
+        df = pd.read_sql_query('Select * from car',mydb)
+        print(df.head())
+
+        return df
 
     except Exception as e:
         logging.info("An error occurred")
