@@ -9,4 +9,6 @@ sqlalchemy
 mysql-connector-python
 flask
 streamlit
--e .
+catboost
+xgboost
+#-e .
