@@ -20,6 +20,7 @@ if __name__ == "__main__":
 # data transfromation
         #data_transformation_config=DataIngestionConfig()
         data_transformation=DataTransformation()
+        
         data_transformation.initiate_data_transformation()
 
     except Exception as e:

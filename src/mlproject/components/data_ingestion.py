@@ -24,7 +24,7 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         try:
             # read data from mysql
-            df = sql_data_read()
+            df = pd.read_csv(os.path.join('ML_Project','raw_data.csv'))
 
             logging.info("Data ingestion reading Completed from mysql")
             
