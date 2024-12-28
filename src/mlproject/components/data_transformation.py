@@ -59,7 +59,7 @@ def initiate_data_transformation(self,train_path,test_path):
     try:
         train_dataset=pd.read_csv(train_path)
         test_dataset=pd.read_csv(test_path)
-
+ 
 
         logging.info("Reading the train test file")
 
