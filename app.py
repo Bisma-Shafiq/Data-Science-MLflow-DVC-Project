@@ -15,12 +15,11 @@ if __name__ == "__main__":
 # data ingestion
 
         #data_ingestion_config=DataIngestionConfig()
-        #data_ingestion=DataIngestion()
-        #data_ingestion.initiate_data_ingestion()
+        data_ingestion=DataIngestion()
+        data_ingestion.initiate_data_ingestion()
 # data transfromation
         #data_transformation_config=DataIngestionConfig()
         data_transformation=DataTransformation()
-        
         data_transformation.initiate_data_transformation()
 
     except Exception as e:
