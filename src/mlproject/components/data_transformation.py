@@ -7,7 +7,7 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
-
+from src.mlproject.utils import save_object
 from src.mlproject.logger import logging
 from src.mlproject.exception_handling import CustomException
 
@@ -84,12 +84,16 @@ def initiate_data_transformation(self,train_path,test_path):
             input_features_train_arr, np.array(target_features_train_dataset)
         ]
 
+        test_arr = np.c_[
+            input_features_test_arr, np.array(target_features_test_dataset)
+        ]
+
 
         logging.info(f"Saved preprocessing object")
 
         save_object(
 
-                file_path=self.data_transformation_config.preprocessor_obj_file_path,
+                file_path=self.data_transformation_config.preprocessor_file_path,
                 obj=preprocessing_obj
             )
 
