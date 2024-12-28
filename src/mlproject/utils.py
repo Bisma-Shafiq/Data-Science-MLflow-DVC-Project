@@ -37,15 +37,16 @@ def sql_data_read():
         raise CustomException(e,sys)
 
 
-def save_object(file_path,obj):
+def save_object(file_path, obj):
+    """
+    Saves a Python object to a file using pickle.
+    """
     try:
         dir_path = os.path.dirname(file_path)
-
-        os.makedirs(dir_path,exist_ok=True)
-
-        with open (file_path,'wb') as file_obj:
+        os.makedirs(dir_path, exist_ok=True)
+        with open(file_path, 'wb') as file_obj:
             pickle.dump(obj, file_obj)
-
-            
+        logging.info(f"Object saved successfully at {file_path}")
     except Exception as e:
-        raise CustomException (e,sys)
+        logging.error("Error saving the object")
+        raise CustomException(e, sys)
