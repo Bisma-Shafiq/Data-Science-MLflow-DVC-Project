@@ -55,54 +55,56 @@ class DataTransformation:
             raise CustomException(f"Error in get_data_transformation: {str(e)}")
 
 
-def initiate_data_transformation(self,train_path,test_path):
-    try:
-        train_dataset=pd.read_csv(train_path)
-        test_dataset=pd.read_csv(test_path)
- 
+    def initiate_data_transformation(self,train_path,test_path):
+    
 
-        logging.info("Reading the train test file")
+        try:
+            train_dataset=pd.read_csv(train_path)
+            test_dataset=pd.read_csv(test_path)
+    
 
-        preprocessing_obj = self.get_data_transformation_object()
+            logging.info("Reading the train test file")
 
-        target_columns = 'Selling Price'
-        numerical_columns = ['Year', 'owner']
-    # divide data to independent dependent 
-        input_features_train_dataset = train_dataset.drop(columns=[target_columns],axis=1)
-        target_features_train_dataset= train_dataset[target_columns]
+            preprocessing_obj = self.get_data_transformation_object()
 
+            target_columns = 'Selling Price'
+            numerical_columns = ['Year', 'owner']
         # divide data to independent dependent 
-        input_features_test_dataset = test_dataset.drop(columns=[target_columns],axis=1)
-        target_features_test_dataset= test_dataset[target_columns]
+            input_features_train_dataset = train_dataset.drop(columns=[target_columns],axis=1)
+            target_features_train_dataset= train_dataset[target_columns]
 
-        logging.info('Applying Preprocessing on training and testing dataframe')
+            # divide data to independent dependent 
+            input_features_test_dataset = test_dataset.drop(columns=[target_columns],axis=1)
+            target_features_test_dataset= test_dataset[target_columns]
 
-        input_features_train_arr = preprocessing_obj.fit_transform(input_features_train_dataset)
-        input_features_test_arr = preprocessing_obj.transform(input_features_test_dataset)
+            logging.info('Applying Preprocessing on training and testing dataframe')
 
-        train_arr = np.c_[
-            input_features_train_arr, np.array(target_features_train_dataset)
-        ]
+            input_features_train_arr = preprocessing_obj.fit_transform(input_features_train_dataset)
+            input_features_test_arr = preprocessing_obj.transform(input_features_test_dataset)
 
-        test_arr = np.c_[
-            input_features_test_arr, np.array(target_features_test_dataset)
-        ]
+            train_arr = np.c_[
+                input_features_train_arr, np.array(target_features_train_dataset)
+            ]
+
+            test_arr = np.c_[
+                input_features_test_arr, np.array(target_features_test_dataset)
+            ]
 
 
-        logging.info(f"Saved preprocessing object")
+            logging.info(f"Saved preprocessing object")
 
-        save_object(
+            save_object(
 
-                file_path=self.data_transformation_config.preprocessor_file_path,
-                obj=preprocessing_obj
-            )
+                    file_path=self.data_transformation_config.preprocessor_file_path,
+                    obj=preprocessing_obj
+                )
 
-        return (
+            return (
 
-                train_arr,
-                test_arr,
-                self.data_transformation_config.preprocessor_obj_file_path
-            )
+                    train_arr,
+                    test_arr,
+                    self.data_transformation_config.preprocessor_obj_file_path
+                )
 
-    except Exception as e:
-        raise CustomException(sys,e)
+        except Exception as e:
+            raise CustomException(sys,e)
