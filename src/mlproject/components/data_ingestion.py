@@ -5,7 +5,8 @@ import pandas as pd
 import numpy as np
 import sys
 from dataclasses import dataclass
-from src.mlproject.utils import sql_data_read
+
+from src.mlproject.utils import save_object , read_sql_data
 from sklearn.model_selection import train_test_split
 @dataclass
 
