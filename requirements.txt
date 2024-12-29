@@ -8,7 +8,6 @@ python-dotenv
 sqlalchemy
 mysql-connector-python
 flask
-streamlit
-catboost
-xgboost
+mlflow
+
 #-e .
